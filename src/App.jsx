@@ -50,33 +50,39 @@ export default function App() {
     showOctave: false,
   });
   const [quizState, setQuizState] = useState(null);
+  const [excludedIds, setExcludedIds] = useState(new Set());
 
   // ── Start new quiz ──────────────────────────────────────────────────────
-  const startQuiz = useCallback((newSettings) => {
-    const notes = getActiveNotes(newSettings.clef, newSettings.filter);
-    if (notes.length === 0) return;
+  const startQuiz = useCallback((newSettings, keepExclusions = false) => {
+    setExcludedIds(prev => {
+      const excluded = keepExclusions ? prev : new Set();
+      const allNotes = getActiveNotes(newSettings.clef, newSettings.filter);
+      const notes = allNotes.filter(n => !excluded.has(n.id));
+      if (notes.length === 0) return prev; // safety: don't start if all excluded
 
-    const weights = Object.fromEntries(notes.map(n => [n.id, 1]));
-    const first   = pickNote(notes, weights, null);
+      const weights = Object.fromEntries(notes.map(n => [n.id, 1]));
+      const first   = pickNote(notes, weights, null);
 
-    setSettings(newSettings);
-    setQuizState({
-      activeNotes: notes,
+      setSettings(newSettings);
+      setQuizState({
+        activeNotes: notes,
       weights,
       currentNote: first,
       questionNumber: 1,
       totalQuestions: newSettings.sessionLength,
-      score: 0,
-      wrongNotes: {},
-      history: [],
-      feedback: null,
-      correctAnswer: null,
-      guessedLetter: null,
-      answerGiven: false,
-      streak: 0,
-      bestStreak: 0,
+        score: 0,
+        wrongNotes: {},
+        history: [],
+        feedback: null,
+        correctAnswer: null,
+        guessedLetter: null,
+        answerGiven: false,
+        streak: 0,
+        bestStreak: 0,
+      });
+      setScreen('quiz');
+      return excluded;
     });
-    setScreen('quiz');
   }, []);
 
   // ── Exclude current note ────────────────────────────────────────────────
@@ -84,7 +90,8 @@ export default function App() {
     setQuizState(prev => {
       if (!prev || prev.answerGiven) return prev;
       const remaining = prev.activeNotes.filter(n => n.id !== prev.currentNote.id);
-      if (remaining.length === 0) return prev; // don't exclude if it's the last note
+      if (remaining.length === 0) return prev;
+      setExcludedIds(ids => new Set([...ids, prev.currentNote.id]));
       const nextNote = pickNote(remaining, prev.weights, prev.currentNote.id);
       return {
         ...prev,
@@ -181,8 +188,8 @@ export default function App() {
         <Results
           settings={settings}
           quizState={quizState}
-          onRestart={() => startQuiz(settings)}
-          onSettings={() => setScreen('settings')}
+          onRestart={() => startQuiz(settings, true)}
+          onSettings={() => { setExcludedIds(new Set()); setScreen('settings'); }}
         />
       )}
     </div>
