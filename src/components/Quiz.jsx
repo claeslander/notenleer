@@ -57,7 +57,8 @@ export default function Quiz({ settings, quizState, onAnswer, onExclude, onQuit 
     return null;
   };
 
-  const progress = ((questionNumber - 1) / totalQuestions) * 100;
+  const isInfinite = totalQuestions === Infinity;
+  const progress = isInfinite ? 0 : ((questionNumber - 1) / totalQuestions) * 100;
 
   return (
     <div className="screen quiz-screen">
@@ -68,12 +69,20 @@ export default function Quiz({ settings, quizState, onAnswer, onExclude, onQuit 
         </button>
 
         <div className="progress-wrap">
-          <div className="progress-bar">
-            <div className="progress-fill" style={{ width: `${progress}%` }} />
-          </div>
-          <span className="progress-text">
-            {questionNumber} / {totalQuestions}
-          </span>
+          {isInfinite ? (
+            <span className="progress-text" style={{ textAlign: 'left' }}>
+              vraag {questionNumber}
+            </span>
+          ) : (
+            <>
+              <div className="progress-bar">
+                <div className="progress-fill" style={{ width: `${progress}%` }} />
+              </div>
+              <span className="progress-text">
+                {questionNumber} / {totalQuestions}
+              </span>
+            </>
+          )}
         </div>
 
         <div className="score-badge">

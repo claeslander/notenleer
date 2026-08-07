@@ -181,7 +181,7 @@ export default function App() {
           quizState={quizState}
           onAnswer={handleAnswer}
           onExclude={handleExclude}
-          onQuit={() => setScreen('settings')}
+          onQuit={() => setScreen(settings.sessionLength === Infinity ? 'results' : 'settings')}
         />
       )}
       {screen === 'results' && quizState && (

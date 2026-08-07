@@ -13,7 +13,7 @@ const FILTER_OPTIONS = [
   { value: 'extended', label: 'Uitgebreid bereik (tot 3 hulplijnen)' },
 ];
 
-const LENGTH_OPTIONS = [10, 20, 30, 50];
+const LENGTH_OPTIONS = [10, 20, 30, 50, Infinity];
 
 const NAME_OPTIONS = [
   { value: 'solfege', label: 'Solfège (Do Re Mi...)' },
@@ -94,7 +94,7 @@ export default function Settings({ settings, onStart }) {
                 className={`pill ${local.sessionLength === n ? 'active' : ''}`}
                 onClick={() => set('sessionLength', n)}
               >
-                {n}
+                {n === Infinity ? '∞' : n}
               </button>
             ))}
           </div>
