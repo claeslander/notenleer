@@ -100,17 +100,7 @@ export default function Settings({ settings, onStart }) {
           </div>
         </section>
 
-        <section className="setting-group setting-toggle">
-          <label className="toggle-label">
-            <span>Octaaf tonen bij antwoorden</span>
-            <input
-              type="checkbox"
-              checked={local.showOctave}
-              onChange={e => set('showOctave', e.target.checked)}
-            />
-            <span className="toggle-switch" />
-          </label>
-        </section>
+
       </div>
 
       <button className="start-btn" onClick={() => onStart(local)}>

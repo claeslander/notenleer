@@ -3,7 +3,7 @@ import { LETTER_TO_SOLFEGE } from '../data/notes';
 
 export default function Results({ settings, quizState, onRestart, onSettings }) {
   const { score, history, wrongNotes, bestStreak } = quizState;
-  const { nameMode, showOctave } = settings;
+  const { nameMode } = settings;
   const total = history.length;
   const pct = total > 0 ? Math.round((score / total) * 100) : 0;
 
@@ -15,12 +15,8 @@ export default function Results({ settings, quizState, onRestart, onSettings }) 
   const noteLabel = (noteId) => {
     const letter = noteId[0]; // e.g. 'C' from 'C4'
     const octave = noteId.slice(1);
-    if (nameMode === 'solfege') {
-      return showOctave
-        ? `${LETTER_TO_SOLFEGE[letter]}${octave}`
-        : LETTER_TO_SOLFEGE[letter];
-    }
-    return showOctave ? noteId : letter;
+    if (nameMode === 'solfege') return LETTER_TO_SOLFEGE[letter];
+    return letter;
   };
 
   const grade = pct >= 90 ? 'Uitstekend!' : pct >= 70 ? 'Goed zo!' : pct >= 50 ? 'Blijven oefenen' : 'Oefening baart kunst';

@@ -17,7 +17,7 @@ export default function Quiz({ settings, quizState, onAnswer, onExclude, onQuit 
     bestStreak,
   } = quizState;
 
-  const { nameMode, showOctave, clef } = settings;
+  const { nameMode, clef } = settings;
 
   // ── Keyboard input ────────────────────────────────────────────────────────
   useEffect(() => {
@@ -34,12 +34,8 @@ export default function Quiz({ settings, quizState, onAnswer, onExclude, onQuit 
 
   // ── Helpers ───────────────────────────────────────────────────────────────
   const buttonLabel = (letter, idx) => {
-    if (nameMode === 'solfege') {
-      return showOctave
-        ? `${SOLFEGE_NAMES[idx]}`
-        : SOLFEGE_NAMES[idx];
-    }
-    return showOctave ? `${letter}` : letter;
+    if (nameMode === 'solfege') return SOLFEGE_NAMES[idx];
+    return letter;
   };
 
   const getButtonState = (letter) => {
@@ -121,7 +117,6 @@ export default function Quiz({ settings, quizState, onAnswer, onExclude, onQuit 
               {nameMode === 'solfege'
                 ? LETTER_TO_SOLFEGE[correctAnswer]
                 : correctAnswer}
-              {showOctave ? currentNote.octave : ''}
             </strong>
           </div>
         )}
