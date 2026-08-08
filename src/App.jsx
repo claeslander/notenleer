@@ -47,6 +47,7 @@ export default function App() {
     filter: 'staff',
     nameMode: 'solfege',
     sessionLength: 20,
+    playNote: false,
   });
   const [quizState, setQuizState] = useState(null);
   const [excludedIds, setExcludedIds] = useState(new Set());

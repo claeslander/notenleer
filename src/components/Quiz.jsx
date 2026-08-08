@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import Staff from './Staff';
 import { NOTE_LETTERS, SOLFEGE_NAMES, LETTER_TO_SOLFEGE } from '../data/notes';
+import { playPianoNote } from '../audio/piano';
 
 const STREAK_MILESTONES = [3, 5, 10, 15, 20];
 
@@ -17,7 +18,14 @@ export default function Quiz({ settings, quizState, onAnswer, onExclude, onQuit 
     bestStreak,
   } = quizState;
 
-  const { nameMode, clef } = settings;
+  const { nameMode, clef, playNote } = settings;
+
+  // ── Play note on correct answer ───────────────────────────────────────────
+  useEffect(() => {
+    if (feedback === 'correct' && playNote) {
+      playPianoNote(currentNote.id);
+    }
+  }, [feedback]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Keyboard input ────────────────────────────────────────────────────────
   useEffect(() => {

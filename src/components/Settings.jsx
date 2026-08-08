@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 const CLEF_OPTIONS = [
-  { value: 'treble', label: 'Vioolsleutel (sol)' },
-  { value: 'bass',   label: 'Bassleutel (fa)' },
+  { value: 'treble', label: 'Solsleutel' },
+  { value: 'bass',   label: 'Fasleutel' },
   { value: 'both',   label: 'Beide sleutels' },
 ];
 
@@ -100,6 +100,23 @@ export default function Settings({ settings, onStart }) {
           </div>
         </section>
 
+        <section className="setting-group">
+          <h2>Pianotoon bij correct antwoord</h2>
+          <div className="pill-group">
+            <button
+              className={`pill ${local.playNote ? 'active' : ''}`}
+              onClick={() => set('playNote', true)}
+            >
+              Aan
+            </button>
+            <button
+              className={`pill ${!local.playNote ? 'active' : ''}`}
+              onClick={() => set('playNote', false)}
+            >
+              Uit
+            </button>
+          </div>
+        </section>
 
       </div>
 
