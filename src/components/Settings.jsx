@@ -28,7 +28,7 @@ export default function Settings({ settings, onStart }) {
   return (
     <div className="screen settings-screen">
       <h1 className="app-title">Notenleer</h1>
-      <p className="app-subtitle">Piano noten leren lezen</p>
+      <p className="app-subtitle">Noten leren lezen</p>
 
       <div className="settings-card">
         <section className="setting-group">
