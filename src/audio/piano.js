@@ -9,6 +9,35 @@ function getCtx() {
   return audioCtx;
 }
 
+export async function playBuzz() {
+  const ctx = getCtx();
+  if (ctx.state === 'suspended') {
+    await ctx.resume();
+  }
+
+  const now = ctx.currentTime;
+
+  const master = ctx.createGain();
+  master.gain.setValueAtTime(0.4, now);
+  master.connect(ctx.destination);
+
+  const osc = ctx.createOscillator();
+  const g = ctx.createGain();
+
+  osc.type = 'sawtooth';
+  osc.frequency.setValueAtTime(120, now);
+  osc.frequency.exponentialRampToValueAtTime(60, now + 0.18);
+
+  g.gain.setValueAtTime(0, now);
+  g.gain.linearRampToValueAtTime(1, now + 0.005);
+  g.gain.exponentialRampToValueAtTime(0.0001, now + 0.25);
+
+  osc.connect(g);
+  g.connect(master);
+  osc.start(now);
+  osc.stop(now + 0.3);
+}
+
 export async function playPianoNote(noteId) {
   const ctx = getCtx();
   if (ctx.state === 'suspended') {
