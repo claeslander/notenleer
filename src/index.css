@@ -2,17 +2,17 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:          #f1f5f9;
-  --card:        #ffffff;
-  --primary:     #4f46e5;
-  --primary-dark:#3730a3;
+  --bg:          #ffffff;
+  --card:        #f5f5f5;
+  --primary:     #000000;
+  --primary-dark:#222222;
   --correct:     #16a34a;
   --wrong:       #dc2626;
-  --text:        #0f172a;
-  --muted:       #64748b;
-  --border:      #e2e8f0;
+  --text:        #000000;
+  --muted:       #666666;
+  --border:      #cccccc;
   --radius:      14px;
-  --shadow:      0 2px 16px rgba(0,0,0,.09);
+  --shadow:      0 2px 16px rgba(0,0,0,.10);
 }
 
 html, body {
@@ -99,7 +99,7 @@ html, body {
 
 .radio-label.active {
   border-color: var(--primary);
-  background: #eef2ff;
+  background: #e8e8e8;
   color: var(--primary);
   font-weight: 600;
 }
@@ -283,18 +283,18 @@ html, body {
   gap: 4px;
   padding: 4px 12px;
   border-radius: 20px;
-  background: #fef3c7;
-  border: 1.5px solid #fcd34d;
+  background: #e8e8e8;
+  border: 1.5px solid #aaaaaa;
   font-size: .85rem;
   font-weight: 700;
-  color: #92400e;
+  color: #000000;
   animation: pop .25s ease;
 }
 
 .streak-badge.streak-hot {
-  background: #fee2e2;
-  border-color: #fca5a5;
-  color: #991b1b;
+  background: #222222;
+  border-color: #000000;
+  color: #ffffff;
 }
 
 .streak-icon { font-size: .7rem; }
@@ -394,9 +394,9 @@ html, body {
 
 .answer-btn:hover:not(:disabled) {
   border-color: var(--primary);
-  background: #eef2ff;
+  background: #e8e8e8;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(79,70,229,.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
 }
 
 .answer-btn:active:not(:disabled) {
@@ -407,12 +407,12 @@ html, body {
 
 .answer-btn.correct {
   border-color: var(--correct);
-  background: #dcfce7;
+  background: #d4edda;
 }
 
 .answer-btn.wrong-guess {
   border-color: var(--wrong);
-  background: #fee2e2;
+  background: #f8d7da;
 }
 
 .btn-main {
