@@ -46,7 +46,7 @@ export default function App() {
     clef: 'treble',
     filter: 'staff',
     nameMode: 'solfege',
-    sessionLength: 20,
+    sessionLength: Infinity,
     playNote: false,
   });
   const [quizState, setQuizState] = useState(null);
